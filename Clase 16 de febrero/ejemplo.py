@@ -87,15 +87,15 @@ class Lista:
     
     def contar_nodos(self):
         return self.contar_nodos_recursivos(self.cabeza)
+    
+    def buscar_dato_recursivo(self, nodo, dato):
+        if nodo is None:
+            return "Dato no encontrado"
+        if dato == nodo.dato:
+            return "Dato encontrado"
+        return self.buscar_dato_recursivo(nodo.siguiente, dato)
+    def buscar_dato(self, dato):
+        return self.buscar_dato_recursivo(self.cabeza,dato)
+        
 
-#Metodo recursivo que diga la longuitud de un lista
-
-def longuitud_lista(lista: list):
-    if lista is None:
-        return 0
-    lista = lista.pop()
-    return 1 + longuitud_lista(lista)
-
-lista = {1,2,3,4,5}
-
-print(longuitud_lista(lista))
+#TAREA: HACER EL REPRODUCTOR DE MUSICA YA HECHO PERO DE FORMA RECURSIVA

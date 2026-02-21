@@ -1,10 +1,9 @@
-def factorial(n,total):
+def factorial(n,total=1):
     if n<=1:
         return total
-    total = n * total
-    factorial(n-1, total)
+    return factorial(n-1, n*total)
 
-factorial(0,1)
+factorial(0)
 
 def factorial_pro(n):
     if n<=1:

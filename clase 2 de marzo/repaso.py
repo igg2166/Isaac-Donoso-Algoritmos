@@ -61,6 +61,7 @@ class Pilas:
 
 
 def orden(expresion):
+    pila = Pilas()
     mapa = {")":"(", "}":"{", "]":"["}
     apertura = set(mapa.values())
     cierre = set(mapa.keys())
@@ -71,18 +72,101 @@ def orden(expresion):
         elif token in cierre:
             if pila.esta_vacia():
                 print("Error")
-                break
+                return
             tope = pila.pop()
             if tope != mapa[token]:
-                print("Error")  
-    print("Exitoso")
+                print("Error")
+                return 
+
+        
+    if pila.esta_vacia():
+        print("Exitoso")
+    else:
+        print("Error")
 
     
-pila = Pilas()
-expresion = "({[]})"
+def verificar_expresion(expresion):
 
-orden(expresion)
+    pila = Pilas()
+
+    mapa = {")":"(", "}":"{", "]":"["}
+    apertura = set(mapa.values())
+    cierre = set(mapa.keys())
+
+    operadores = set("+-*/")
+
+    anterior = None
+
+    for i, token in enumerate(expresion):
+
+        # ignorar espacios
+        if token == " ":
+            continue
+
+        # NUMERO
+        if token.isdigit():
+            anterior = "numero"
+            continue
+
+        # APERTURA
+        if token in apertura:
+            pila.push(token)
+            anterior = "apertura"
+            continue
+
+        # CIERRE
+        if token in cierre:
+
+            if anterior == "operador":
+                print(f"Error: cierre despues de operador en posicion {i}")
+                return False
+
+            if pila.esta_vacia():
+                print(f"Error: cierre inesperado en posicion {i}")
+                return False
+
+            tope = pila.pop()
+
+            if tope != mapa[token]:
+                print(f"Error: parentesis incorrectos en posicion {i}")
+                return False
+
+            anterior = "cierre"
+            continue
+
+        # OPERADOR
+        if token in operadores:
+
+            if anterior in (None, "operador", "apertura"):
+                print(f"Error: operador mal ubicado en posicion {i}")
+                return False
+
+            anterior = "operador"
+            continue
+
+        print(f"Error: caracter invalido '{token}' en posicion {i}")
+        return False
+
+    # terminar con operador
+    if anterior == "operador":
+        print("Error: la expresion termina con operador")
+        return False
+
+    if not pila.esta_vacia():
+        print("Error: faltan cierres de parentesis")
+        return False
+
+    return True
+
+expresion = "[{(5+2)*3}+4]"
+
+#orden(expresion)
+
+if verificar_expresion(expresion):
+    print("La expresion es correcta.")
+else:
+    print("La expresion es incorrecta.")
 
 
 #print(formas_subir(40))
-#print(formas_subir_memo(750))
+#print(formas_subir_memo(750))  

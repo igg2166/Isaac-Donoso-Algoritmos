@@ -10,11 +10,11 @@ canciones_maria = {
     "Si te vas", "Tu misterioso alguien", "No necesito", "Nada personal"
 }
 
-#Comun
+#Comun(Interseccion)
 playlist_comun = canciones_juan.intersection(canciones_maria)
 playlist_comun = canciones_juan & canciones_maria
 
-#Eliminar
+#Eliminar(Diferencia) --> el orden importa a-b != b-a
 recomendaciones_juan = canciones_maria - canciones_juan
 
 #Union
@@ -24,7 +24,7 @@ catalogo = canciones_juan.union(canciones_maria)
 #Subconjunto (Lo de la primera pertenece a la otra)
 a = {canciones_juan <= canciones_maria}
 
-#Diferencia simetrica
+#Diferencia simetrica --> a-b & b-a (esta es la forma mas clara en la que entiendo esta cosa)
 exclusivas = canciones_juan ^ canciones_maria
 
 algoritmos = {"Ana", "Carlos", "Eduardo", "Fernanda", "Gabriel", "Helena", "Ivan"}

@@ -53,7 +53,7 @@ class Conjunto:
                 return True
             actual = actual.siguiente
         return False
-    
+
     def union(self, otro):
         resultado = Conjunto()
 
@@ -95,6 +95,14 @@ class Conjunto:
         #Hacemos la union de la diferencia de mi conjunto con el otro y
         #la diferencia del otro conjunto con el mio
         return self.diferencia(otro).union(otro.diferencia(self))
+    
+    def subconjunto(self, otro):
+        actual = self.cabeza
+        while actual:
+            if not otro.pertenece(actual.dato):
+                return False
+            actual = actual.siguiente
+        return True
     
     def a_lista(self):
         resultado = []

@@ -121,7 +121,7 @@ print("=" * 60)
 
 for r1 in roles:
     for r2 in roles:
-        if r1 != r2 and roles[r2] < roles[r1]:
+        if r1 != r2 and roles[r2] < roles[r1]: #Esto es un subconjunto propio, osea que tiene que ser subconjunto y a la vez se mas pequeño R
             print(f"  {r1} contiene todos los permisos de {r2}")
 
 # 5. Crear nuevo rol combinando otros

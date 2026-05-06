@@ -45,8 +45,8 @@ def alpha(lista):
     promedio = total / len(lista)
     return promedio
 
-# Complejidad: O(?)
-# Porque: ___
+# Complejidad: O(n) -- lineal
+# Porque: Debido a que el ciclo depende de la entrada de la funcion por lo que se repite n veces
 
 
 def beta(lista):
@@ -56,8 +56,8 @@ def beta(lista):
                 return True
     return False
 
-# Complejidad: O(?)
-# Porque: ___
+# Complejidad: O(n^2)
+# Porque: En este caso es porque los ciclos anidados dependes de la entrada de la funcion
 
 
 def gamma(n):
@@ -65,8 +65,8 @@ def gamma(n):
         return 1
     return gamma(n // 2) + 1
 
-# Complejidad: O(?)
-# Porque: ___
+# Complejidad: O(log n)
+# Porque: Pese a que el ciclo tambien depende de la entrada de la funcion esta entrada va disminuyendo de forma logaritmica
 
 
 def delta(lista):
@@ -75,8 +75,8 @@ def delta(lista):
         resultado.add(x)
     return resultado
 
-# Complejidad: O(?)
-# Porque: ___
+# Complejidad: O(n)
+# Porque: Misma razon que el primero, el ciclo depende de la entrada de la funcion
 
 
 def epsilon(lista):
@@ -84,8 +84,8 @@ def epsilon(lista):
         if x in lista:
             pass
 
-# Complejidad: O(?)
-# Porque: ___
+# Complejidad: O(n^2)
+# Porque: La pista es clave, en este caso el primer ciclo depende de la entrada, pero el if tambien, ya que en el peor de los casos debe recorrer toda la lista para encontrar el resultado
 # PISTA: ¿cuánto cuesta `x in lista`?
 
 
@@ -95,8 +95,8 @@ def zeta(n):
         while j < n:
             j *= 3
 
-# Complejidad: O(?)
-# Porque: ___
+# Complejidad: O(n log n)
+# Porque: Aunque ambos ciclos dependen de la entrada, en una su crecimiento el lineal al rango de la entrada, pero en el otro su crecimiento es de forma logaritmica, porque el crecimiento de j es exponencial
 
 
 def eta(lista):
@@ -107,7 +107,7 @@ def eta(lista):
     der = eta(lista[medio:])
     return izq + der
 
-# Complejidad: O(?)
+# Complejidad: O(n log n)
 # Porque: ___
 # PISTA: ¿cuánto cuesta lista[:medio]?
 
@@ -118,8 +118,8 @@ def theta(n):
         i += 1
     return i
 
-# Complejidad: O(?)
-# Porque: ___
+# Complejidad: O(√n) or O(log(log n))
+# Porque: Es debido a que el crecimiento de i funciona como una raiz, tambien en cualquien caso donde la condicion se multiplica por ella misma seria log de log
 
 
 """
@@ -130,15 +130,15 @@ Ordena las siguientes complejidades de la MÁS RÁPIDA a la MÁS LENTA:
 O(n!), O(1), O(n log n), O(2^n), O(n²), O(log n), O(n), O(n³), O(√n)
 
 Tu respuesta (de más rápida a más lenta):
-1. ___
-2. ___
-3. ___
-4. ___
-5. ___
-6. ___
-7. ___
-8. ___
-9. ___
+1. O(1)
+2. O(log n)
+3. O(√n)
+4. O(n log n)
+5. O(n)
+6. O(n^2)
+7. O(n^3)
+8. O(2^n)
+9. O(n!)
 """
 
 
@@ -147,31 +147,31 @@ PUNTO A.3 (0.3): Verdadero o Falso
 
 Escribe V o F y justifica brevemente las falsas.
 
-1. ___ O(2n) es más lento que O(n)
-   Justificación: ___
+1. (F) O(2n) es más lento que O(n)
+   Justificación: Las contantes se ignoran
 
-2. ___ Un algoritmo O(n²) siempre es más lento que uno O(n log n)
-   Justificación: ___
+2. (F) Un algoritmo O(n²) siempre es más lento que uno O(n log n)
+   Justificación:En un escenario donde n sea pequeña, un algoritmo O(n^2) puede ser mas rapido que O(n log n)
 
-3. ___ Si un algoritmo tiene un for de n y dentro un for de 5,
+3. (F) Si un algoritmo tiene un for de n y dentro un for de 5,
        su complejidad es O(n²)
-   Justificación: ___
+   Justificación: No porque solo uno de los for depende de la entrada de la funcion, el otro es constante
 
-4. ___ `x in set` tiene la misma complejidad que `x in list`
-   Justificación: ___
+4. (F) `x in set` tiene la misma complejidad que `x in list`
+   Justificación: No porque un in en lista la debe recorrer si o si por lo que su complejidad es O(n), mientras que en un conjunto no, ahi encuentra directamente el dato por lo que su complejidad es O(1)
 
-5. ___ Un algoritmo recursivo que se llama a sí mismo 2 veces
+5. (F) Un algoritmo recursivo que se llama a sí mismo 2 veces
        siempre es O(2^n)
-   Justificación: ___
+   Justificación: Depende de cuánto se reduce el problema en cada llamada; no siempre genera complejidad exponencial
 
-6. ___ O(n) + O(n²) = O(n³)
-   Justificación: ___
+6. (F) O(n) + O(n²) = O(n³)
+   Justificación: O(n) + O(n²) = O(n²), porque domina el término de mayor crecimiento   
 
-7. ___ La complejidad espacial de un algoritmo in-place es O(1)
-   Justificación: ___
+7. (V) La complejidad espacial de un algoritmo in-place es O(1)
+   Justificación: Un algoritmo in-place tiene complejidad espacial O(1) porque no utiliza estructuras auxiliares proporcionales al tamaño de la entrada
 
-8. ___ Memoización mejora la complejidad temporal pero empeora la espacial
-   Justificación: ___
+8. (V) Memorización mejora la complejidad temporal pero empeora la espacial
+   Justificación: Porque guarda resultados intermedios en memoria para evitar recomputarlos
 """
 
 
@@ -190,33 +190,106 @@ Puedes consultar: https://wiki.python.org/moin/TimeComplexity
 ┌──────────────────────────────┬──────────────┬──────────────┐
 │ Operación                    │ Lista []     │ Set/Dict {}  │
 ├──────────────────────────────┼──────────────┼──────────────┤
-│ Acceder por índice [i]       │ O(?)         │ N/A          │
-│ Buscar elemento (x in ...)   │ O(?)         │ O(?)         │
-│ Agregar al final (.append)   │ O(?)         │ O(?)  (.add) │
-│ Insertar al inicio           │ O(?)         │ N/A          │
-│ Eliminar por valor (.remove) │ O(?)         │ O(?)         │
-│ Obtener longitud (len)       │ O(?)         │ O(?)         │
-│ Ordenar (.sort / sorted)     │ O(?)         │ N/A          │
-│ Copiar (.copy / [:])         │ O(?)         │ O(?)         │
+│ Acceder por índice [i]       │ O(1)         │ N/A          │
+│ Buscar elemento (x in ...)   │ O(n)         │ O(1)*        │
+│ Agregar al final (.append)   │ O(1)*        │ O(1)* (.add) │
+│ Insertar al inicio           │ O(n)         │ N/A          │
+│ Eliminar por valor (.remove) │ O(n)         │ O(1)*        │
+│ Obtener longitud (len)       │ O(1)         │ O(1)         │
+│ Ordenar (.sort / sorted)     │ O(n log n)   │ N/A          │
+│ Copiar (.copy / [:])         │ O(n)         │ O(n)         │
 └──────────────────────────────┴──────────────┴──────────────┘
+-- El * significa que su complejidad general puede ser diferente a la complejidad de su peor caso.
+
+Justificacion
+
+-- Acceder por índice [i]
+    Lista: O(1)
+    El acceso por índice en una lista es constante porque los elementos se almacenan en posiciones contiguas de memoria,
+    lo que permite calcular directamente la dirección del elemento sin necesidad de recorrer la estructura.
+
+    Set/Dict: N/A
+    No aplica, ya que estas estructuras no manejan acceso por posición o índice.
+
+-- Buscar elemento (x in ...)
+    Lista: O(n)
+    La búsqueda en una lista es lineal porque puede ser necesario recorrer todos los elementos hasta encontrar el valor o determinar que no existe.
+
+    *Set/Dict: O(1) **
+    La búsqueda se realiza mediante una tabla hash, permitiendo acceso directo al elemento en tiempo constante promedio. 
+    Sin embargo, en el peor caso puede degradarse a O(n) debido a colisiones.
+
+-- Agregar al final (append / add)
+    *Lista: O(1) **
+    Insertar al final de una lista es constante en promedio, ya que normalmente hay espacio disponible; sin embargo, 
+    cuando la lista se redimensiona, se requiere copiar todos los elementos, lo que implica un costo O(n) ocasional.
+    
+    *Set/Dict: O(1) **
+    La inserción se realiza utilizando una función hash que permite ubicar rápidamente la posición del elemento,
+    aunque puede degradarse en presencia de colisiones o redimensionamientos.
+
+-- Insertar al inicio
+    Lista: O(n)
+    Insertar un elemento al inicio implica desplazar todos los elementos existentes una posición hacia la derecha, 
+    lo que requiere recorrer toda la lista.
+    
+    Set/Dict: N/A
+    No aplica, ya que estas estructuras no tienen un orden posicional que permita definir un inicio.
+
+-- Eliminar por valor (remove)
+    Lista: O(n)
+    Primero es necesario localizar el elemento mediante una búsqueda lineal, y posteriormente reorganizar los elementos restantes, 
+    lo que implica un costo total lineal.
+    
+    *Set/Dict: O(1) **
+    La eliminación se realiza directamente mediante el hash del elemento, permitiendo un acceso rápido en promedio, 
+    aunque puede degradarse en casos de colisiones.
+
+-- Obtener longitud (len)
+    Lista: O(1)
+    La longitud se almacena internamente en la estructura, por lo que no es necesario recorrer los elementos para calcularla.
+
+    Set/Dict: O(1)
+    De igual manera, estas estructuras mantienen un contador interno del número de elementos.
+
+-- Ordenar (sort / sorted)
+    Lista: O(n log n)
+    El algoritmo de ordenamiento utilizado (Timsort) divide la lista en partes más pequeñas y luego las combina ordenadamente, 
+    lo que implica un costo de n log n.
+
+    Set/Dict: N/A
+    No aplica, ya que estas estructuras no están diseñadas para mantener un orden de sus elementos.
+
+-- Copiar (copy / [:])
+    Lista: O(n)
+    Copiar una lista implica recorrer todos sus elementos para crear una nueva estructura con los mismos valores.
+
+    Set/Dict: O(n)
+    De forma similar, copiar un conjunto o diccionario requiere iterar sobre todos sus elementos.
 """
 
 
 """
-PUNTO B.2 (0.25): Caso real
+    PUNTO B.2 (0.25): Caso real
 
-Investiga y responde:
+    Investiga y responde:
 
-1. ¿Qué algoritmo de ordenamiento usa Python internamente (sorted/list.sort)?
-   Respuesta: ___
+    1. ¿Qué algoritmo de ordenamiento usa Python internamente (sorted/list.sort)?
+    Respuesta: Timsort
+    Python utiliza Timsort, un algoritmo híbrido basado en Merge Sort + Insertion Sort, diseñado específicamente para datos del mundo real.
 
-2. ¿Cuál es su complejidad en el mejor, peor y caso promedio?
-   Mejor: ___
-   Peor: ___
-   Promedio: ___
+    2. ¿Cuál es su complejidad en el mejor, peor y caso promedio?
+    Mejor: O(n)
+    Peor: O(n log n)
+    Promedio: O(n log n)
+    
+    Justificación breve:
+    Mejor caso (O(n)): cuando la lista ya está ordenada o casi ordenada.
+    Peor y promedio (O(n log n)): debido a la división y combinación de sublistas.
 
-3. ¿Por qué Python eligió ese algoritmo y no Quick Sort?
-   Respuesta: ___
+    3. ¿Por qué Python eligió ese algoritmo y no Quick Sort?
+    Respuesta: Python eligió Timsort porque es más eficiente en datos reales, es estable y garantiza un rendimiento O(n log n) en el peor caso.
+    A diferencia de Quick Sort, que puede degradarse a O(n²) en el peor caso, Timsort aprovecha secuencias ya ordenadas y ofrece mejor desempeño práctico.
 """
 
 
@@ -239,7 +312,7 @@ En cada problema:
 def unicos_lento(lista):
     """
     Retorna lista sin duplicados manteniendo el orden.
-    COMPLEJIDAD: O(?)  ← analiza y escribe
+    COMPLEJIDAD: O(n^2)  ← analiza y escribe
     """
     resultado = []
     for x in lista:
@@ -254,9 +327,16 @@ def unicos_rapido(lista):
     USA un set auxiliar para búsqueda O(1).
 
     TODO: Implementar
-    COMPLEJIDAD: O(?)
+    Complejidad: O(n)
+    Porque: Se recorre la lista una sola vez y las operaciones en set son O(1) en promedio
     """
-    pass
+    vistos = set()
+    resultado = []
+    for x in lista:
+        if x not in vistos:
+            vistos.add()
+            resultado.append(x)
+    return resultado
 
 
 # ─── PROBLEMA C.2 (0.4): Frecuencia del más común ────────────────────────────
@@ -264,7 +344,7 @@ def unicos_rapido(lista):
 def mas_comun_lento(lista):
     """
     Retorna el elemento que más se repite y cuántas veces.
-    COMPLEJIDAD: O(?)  ← analiza y escribe
+    COMPLEJIDAD: O(n^2)  ← analiza y escribe
     """
     max_elem = None
     max_count = 0
@@ -284,9 +364,21 @@ def mas_comun_rapido(lista):
     Misma funcionalidad usando diccionario contador.
 
     TODO: Implementar
-    COMPLEJIDAD: O(?)
+    Complejidad: O(n)
+    Porque: Se recorre la lista una vez para contar frecuencias (O(n)) y luego se recorre el diccionario (O(n)), resultando en O(n) total
     """
-    pass
+    conteo = {}
+    for x in lista:
+        conteo[x] = conteo.get(x, 0) + 1
+    max_elem = None
+    max_count = 0
+    for x in conteo:
+        if conteo[x] > max_count:
+            max_count = conteo[x]
+            max_elem = x 
+    return max_elem, max_count
+
+    
 
 
 # ─── PROBLEMA C.3 (0.4): Pares que suman K ───────────────────────────────────
@@ -294,7 +386,7 @@ def mas_comun_rapido(lista):
 def pares_suma_lento(lista, k):
     """
     Retorna todos los pares (i, j) donde lista[i] + lista[j] == k.
-    COMPLEJIDAD: O(?)  ← analiza y escribe
+    COMPLEJIDAD: O(n^2)  ← analiza y escribe
     """
     pares = []
     for i in range(len(lista)):
@@ -313,9 +405,18 @@ def pares_suma_rapido(lista, k):
     - Si el complemento ya está en un set de "vistos", es un par
 
     TODO: Implementar
-    COMPLEJIDAD: O(?)
+    Complejidad: O(n)
+    Porque: Se recorre la lista una sola vez y cada búsqueda en el set es O(1) en promedio
     """
-    pass
+    vistos = set()
+    pares = []
+    for x in lista:
+        complemento = k - x
+        if  complemento in vistos:
+            pares.append((complemento,x))
+        vistos.add(x)
+    return pares
+
 
 
 # ─── PROBLEMA C.4 (0.4): Anagramas ───────────────────────────────────────────
@@ -323,7 +424,8 @@ def pares_suma_rapido(lista, k):
 def son_anagramas_lento(palabra1, palabra2):
     """
     Verifica si dos palabras son anagramas (mismas letras, diferente orden).
-    COMPLEJIDAD: O(?)  ← analiza y escribe
+    COMPLEJIDAD: O(n log n)  ← analiza y escribe
+    Este me confundio pero ahora entendi que en el peor de los casos al usar el sorted la complejidad es O(n log nx)
     """
     if len(palabra1) != len(palabra2):
         return False
@@ -337,9 +439,21 @@ def son_anagramas_rapido(palabra1, palabra2):
     Estrategia: contar frecuencia de cada letra con diccionario.
 
     TODO: Implementar
-    COMPLEJIDAD: O(?)
+    Complejidad: O(n)
+    Porque: se recorren ambas palabras una sola vez y las operaciones en diccionario son O(1) en promedio
     """
-    pass
+    if len(palabra1) != len(palabra2):
+        return False
+    conteo = {}
+    for c in palabra1:
+        conteo[c] = conteo.get(c, 0) + 1
+    for c in palabra2:
+        if c not in conteo: 
+            return False
+        conteo[c] -= 1
+        if conteo[c] == 0:
+            del conteo[c]
+    return len(conteo) == 0
 
 
 # ─── PROBLEMA C.5 (0.4): Subarray de suma máxima ─────────────────────────────
@@ -349,7 +463,7 @@ def max_subarray_lento(lista):
     Encuentra la suma máxima de un subarray contiguo.
     Ejemplo: [-2, 1, -3, 4, -1, 2, 1, -5, 4] → 6 (subarray [4, -1, 2, 1])
 
-    COMPLEJIDAD: O(?)  ← analiza y escribe
+    COMPLEJIDAD: O(n^3)  ← analiza y escribe
     """
     n = len(lista)
     max_suma = lista[0]
@@ -371,9 +485,17 @@ def max_subarray_rapido(lista):
     - max_suma = max(max_suma, suma_actual)
 
     TODO: Implementar
-    COMPLEJIDAD: O(?)
+    Complejidad: O(n)
+    Porque: Se recorre la lista una sola vez realizando operaciones constantes en cada iteración
     """
-    pass
+    suma_actual = lista[0]
+    max_suma = lista[0]
+    
+    for x in lista[1:]:
+        suma_actual = max(x, suma_actual + x)
+        max_suma = max(max_suma, suma_actual)
+    
+    return max_suma
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -396,8 +518,9 @@ Ejemplo:
 Propón DOS soluciones con diferente complejidad:
 
 SOLUCIÓN 1 (fuerza bruta):
-  Descripción: ___
-  Complejidad: O(?)
+  Descripción: Se recorre toda la lista de palabras y se seleccionan aquellas que comienzan con el prefijo dado, 
+  deteniéndose cuando se encuentran 5 coincidencias.
+  Complejidad: O(n)
   Código:
 """
 
@@ -406,17 +529,28 @@ def autocompletar_v1(palabras, prefijo):
     """
     Versión fuerza bruta.
     TODO: Implementar
-    COMPLEJIDAD: O(?)
+    COMPLEJIDAD: O(n)
     """
-    pass
+    resultado = []
+    for palabra in palabras:
+        if palabra.startswith(prefijo):
+            resultado.append(palabra)
+            if len(resultado) == 5:
+                break
+    
+    return resultado
+  
 
 
 """
 SOLUCIÓN 2 (optimizada):
-  Descripción: ___
-  Complejidad: O(?)
-  ¿Qué estructura de datos usarías? ___
-  Código:
+Descripción:
+Se utiliza búsqueda binaria para encontrar la primera palabra que coincide con el prefijo en una lista ordenada, 
+y luego se toman las siguientes coincidencias.
+
+Complejidad: O(log n)
+¿Qué estructura de datos usarías? Lista ordenada
+Código:
 """
 
 
@@ -429,8 +563,27 @@ def autocompletar_v2(palabras_ordenadas, prefijo):
     TODO: Implementar
     COMPLEJIDAD: O(?)
     """
-    pass
-
+    izquierda = 0
+    derecha = len(palabras) - 1
+    inicio = -1
+    while izquierda <= derecha:
+        medio = (izquierda + derecha) // 2
+        
+        if palabras[medio].startswith(prefijo):
+            inicio = medio
+            derecha = medio - 1 
+        elif palabras[medio] < prefijo:
+            izquierda = medio + 1
+        else:
+            derecha = medio - 1
+    if inicio == -1:
+        return []
+    resultado = []
+    i = inicio
+    while i < len(palabras) and palabras[i].startswith(prefijo) and len(resultado) < 5:
+        resultado.append(palabras[i])
+        i += 1
+    return resultado
 
 """
 PUNTO D.2 (0.5): Analizar un sistema real
@@ -442,24 +595,33 @@ Analiza la complejidad de estas operaciones y propón la mejor
 estructura de datos para cada una:
 
 1. Verificar si dos usuarios son amigos
-   - Con lista de amigos: O(?)
-   - Con set de amigos: O(?)
-   - ¿Cuál elegirías? ___
+    - Con lista de amigos: O(n)
+    - Con set de amigos: O(1)
+    - ¿Cuál elegirías? Set
 
 2. Encontrar amigos en común entre dos usuarios
-   - Con listas: O(?)
-   - Con sets: O(?)
-   - ¿Cuál elegirías? ___
+   - Con listas: O(n²)
+    - Con sets: O(n)
+    - ¿Cuál elegirías? Set
 
 3. Sugerir "personas que quizás conozcas" (amigos de amigos que no son tus amigos)
-   - Describe tu algoritmo: ___
-   - Complejidad estimada: O(?)
-   - ¿Es viable para 10M de usuarios? ___
+   - Describe tu algoritmo: Para un usuario, se recorren sus amigos y luego los amigos de esos amigos. 
+   Se agregan a una estructura (como un set o diccionario) aquellos usuarios que no son amigos directos ni el propio usuario, 
+   contando cuántas veces aparecen para priorizar sugerencias.
+   - Complejidad estimada: O(n²)
+   - ¿Es viable para 10M de usuarios? Sí, porque aunque es O(n²), n es pequeño (≈200), por lo que en la práctica es manejable.
 
 4. Si cada usuario tiene en promedio 200 amigos y hay 10M de usuarios:
    - ¿Cuánta memoria ocupa almacenar TODAS las relaciones de amistad?
-   - Con lista: ___ bytes aproximadamente
-   - Con set: ___ bytes aproximadamente
+    Tenemos:
+    10 millones usuarios -> 10^7
+    200 amigos por usuario
+
+    Total relaciones:
+    10^7 * 200 relaciones
+    Cada ID de usuario ocupa 4 bytes aproximadamente
+   - Con lista: 4 bytes * 10^7 * 200 es aproximadamente 8 GB
+   - Con set:  Son 16 GB aproximadamente debido a que un set() ocupa mas o menos el doble de almacenamiento que una lista.
 """
 
 
@@ -474,11 +636,11 @@ elegir el algoritmo incorrecto podría causar problemas reales
 (tiempo de espera, costos de servidor, mala experiencia de usuario, etc.)
 
 Tu respuesta:
-___
-___
-___
-___
-___
+Analizar la complejidad de un algoritmo antes de implementarlo es fundamental porque permite anticipar cómo se comportará cuando el tamaño de los datos crezca, 
+evitando soluciones que funcionen en pequeño pero fallen en escenarios reales. Elegir un algoritmo ineficiente puede provocar tiempos de respuesta muy altos, 
+mayor consumo de recursos y costos elevados en servidores. Por ejemplo, si una red social utiliza un algoritmo O(n²) para buscar amigos en común entre millones de usuarios, 
+el sistema podría volverse extremadamente lento o incluso colapsar. En cambio, usando estructuras como sets y algoritmos O(n), se mejora significativamente el rendimiento. 
+En general, un buen análisis de complejidad permite tomar decisiones más inteligentes y construir sistemas escalables y eficientes.
 """
 
 

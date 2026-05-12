@@ -1,7 +1,7 @@
 #Burbuja --> Complejidad temporal O(n^2), especial O(1), estable
 #Insercion --> Compljidad temporal O(n^2), espacial O(1), estable
 
-#Mergesort --> Complejidad temporal O(n log(n)), espacial O(n),
+#Mergesort --> Complejidad temporal O(n log(n)), espacial O(n) --> porque crea nuevas estructuras, estable --> importa los elementos repetidos
 def merge(arr, left, middle, right):
     n1 = middle - left + 1
     n2 = right - middle

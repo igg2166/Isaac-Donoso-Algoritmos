@@ -29,6 +29,8 @@ def heapsort(arr):
     return arr 
 
 #Counting sort --> solo ordena numeros enteros, nada mas y el rango de valores hay que tomarlo muy en cuenta mucho si es muy grande no seria muy viable para el tiempo de ejecucion
+#Volviendo lo del rango si una lista es no es muy grande digamos [100,205,2,1503,55] se crearia un sub arreglo de rango 2 a 1503 donde casi que todas sus posiciones estaran en 0 menos los 6 digitos a ordenar se odernan(arre)
+#No vale la pena hacerlo si el rango del sub arreglo es muy grande 
 #Es estable porque los elemento repetido se organizan en orden, osea si hay un 5 en la posicion 4 y otro en la posicion 10, al ordenarse el 5 en la posicion 4 quedara de primeras
 
 #Toca saber como y donde meter la mano en el codigo para adaptarlo a las necesidades

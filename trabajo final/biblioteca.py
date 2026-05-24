@@ -1,20 +1,18 @@
-# ================================================================
-#                    SECCIÓN 1: ESTRUCTURAS BASE
-# ================================================================
+from datetime import date
 
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ESTRUCTURA
+# ═══════════════════════════════════════════════════════════════════════════════
 class Nodo:
     def __init__(self, dato):
         self.dato = dato
         self.siguiente = None
 
 
-class ListaLigada:
-    def __init__(self, elementos = None):
+class Biblioteca:
+    def __init__(self):
         self.cabeza = None
-
-        if elementos:
-            for e in elementos:
-                self.insertar(e)
 
     def esta_vacia(self):
         return self.cabeza is None
@@ -46,7 +44,7 @@ class ListaLigada:
         self.buscar_todos_recursivo(self.cabeza, criterio, resultados)
         return resultados
 
-    def a_lista_python(self):
+    def a_lista(self):
         resultado = []
         actual = self.cabeza
         while actual:
@@ -61,15 +59,10 @@ class ListaLigada:
             elementos.append(str(actual.dato))
             actual = actual.siguiente
         return " -> ".join(elementos)
-    
 
-# ================================================================
-#                    SECCION 2: CATALOGO DE LIBROS
-# ================================================================
-
-# El catalogo es un diccionario donde:
-# key   -> genero (string)
-# value -> ListaLigada de libros (cada libro es un diccionario)
+# ═══════════════════════════════════════════════════════════════════════════════
+# CATALOGO
+# ═══════════════════════════════════════════════════════════════════════════════
 
 catalogo = {}
 generos_disponibles = set()
@@ -82,12 +75,11 @@ def agregar_libro(titulo, autor, genero):
     libro = {
         "titulo": titulo,
         "autor": autor,
-        "genero": genero,
         "disponible": True
     }
 
     if genero not in catalogo:
-        catalogo[genero] = ListaLigada()
+        catalogo[genero] = Biblioteca()
         generos_disponibles.add(genero)
     
     catalogo[genero].insertar(libro)
@@ -122,10 +114,10 @@ def buscar_libros_por_genero(genero):
     """
     Retorna un set con los titulos disponibles de un genero. O(n)
     """
-    if genero not in catalogo:
+    if genero not in generos_disponibles:
         return set()
     
-    libros = catalogo[genero].a_lista_python()
+    libros = catalogo[genero].a_lista()
     titulos_disponibles = set()
 
     for libro in libros:
@@ -142,7 +134,7 @@ def mostrar_catalogo():
     
     for genero, lista in catalogo.items():
         print(f"\nGenero: {genero}")
-        libros = lista.a_lista_python()
+        libros = lista.a_lista()
 
         for libro in libros:
             if libro["disponible"]:
@@ -153,15 +145,12 @@ def mostrar_catalogo():
             print(f"   - {libro['titulo']} | {libro['autor']} | {estado}")
 
 
-# ================================================================
-#                    SECCION 3: USUARIOS
-# ================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
+# USUARIOS
+# ═══════════════════════════════════════════════════════════════════════════════
 
-# Los usuarios se guardan en una lista ligada
-# Cada usuario es un diccionario con su informacion
-
-usuarios = ListaLigada()
-documentos_registrados = set()  # Para verificar rapidamente si un usuario ya existe
+usuarios = Biblioteca()
+documentos_registrados = set()
 
 def registrar_usuario(documento, nombre, telefono, correo):
     """
@@ -196,22 +185,16 @@ def mostrar_usuarios():
         print("No hay usuarios registrados.")
         return
     
-    lista = usuarios.a_lista_python()
+    lista = usuarios.a_lista()
 
     for u in lista:
         print(f"Documento: {u['documento']} | Nombre: {u['nombre']} | Telefono: {u['telefono']} | Correo: {u['correo']}")
 
+# ═══════════════════════════════════════════════════════════════════════════════
+# PRESTAMOS
+# ═══════════════════════════════════════════════════════════════════════════════
 
-# ================================================================
-#                    SECCION 4: PRESTAMOS
-# ================================================================
-
-from datetime import date
-
-# Los prestamos se guardan en una lista ligada
-# Cada prestamo es un diccionario con su informacion
-
-prestamos = ListaLigada()
+prestamos = Biblioteca()
 
 def registrar_prestamo(documento, titulo_libro):
     usuario = buscar_usuario(documento)
@@ -224,7 +207,7 @@ def registrar_prestamo(documento, titulo_libro):
         print("El libro no existe en el catalogo.")
         return False
     
-    libro = resultados[0]  # tomamos el primero que coincida
+    libro = resultados[0]  
 
     if not libro["disponible"]:
         print(f"El libro '{titulo_libro}' no esta disponible en este momento.")
@@ -270,7 +253,7 @@ def verificar_atrasos():
     Revisa todos los prestamos en curso y marca los atrasados. O(n)
     Se considera atrasado si lleva mas de 14 dias.
     """
-    lista = prestamos.a_lista_python()
+    lista = prestamos.a_lista()
     hoy = date.today()
 
     for prestamo in lista:
@@ -283,7 +266,7 @@ def mostrar_prestamos_activos():
     """
     Muestra todos los prestamos en curso o atrasados. O(n)
     """
-    lista = prestamos.a_lista_python()
+    lista = prestamos.a_lista()
     hay_activos = False
 
     for prestamo in lista:
@@ -295,129 +278,13 @@ def mostrar_prestamos_activos():
         print("No hay prestamos activos.")
 
 
-# ================================================================
-#                    SECCION 5: MENU PRINCIPAL
-# ================================================================
-
-def menu_principal():
-    while True:
-        print("\n===== BIBLIOTECA =====")
-        print("1. Registrar usuario")
-        print("2. Buscar usuario")
-        print("3. Mostrar usuarios")
-        print("4. Agregar libro")
-        print("5. Mostrar catalogo")
-        print("6. Buscar libro por titulo")
-        print("7. Buscar libros por autor")
-        print("8. Buscar libros por genero")
-        print("9. Registrar prestamo")
-        print("10. Registrar devolucion")
-        print("11. Mostrar prestamos activos")
-        print("12. Verificar atrasos")
-        print("0. Salir")
-
-        opcion = input("\nElige una opcion: ")
-
-        if opcion == "1":
-            documento = input("Documento: ")
-            nombre = input("Nombre: ")
-            telefono = input("Telefono: ")
-            correo = input("Correo: ")
-            registrar_usuario(documento, nombre, telefono, correo)
-
-        elif opcion == "2":
-            documento = input("Documento a buscar: ")
-            usuario = buscar_usuario(documento)
-            if usuario:
-                print(f"Usuario encontrado: {usuario['nombre']} | {usuario['telefono']} | {usuario['correo']}")
-            else:
-                print("Usuario no encontrado.")
-
-        elif opcion == "3":
-            mostrar_usuarios()
-
-        elif opcion == "4":
-            titulo = input("Titulo: ")
-            autor = input("Autor: ")
-            genero = input("Genero: ")
-            agregar_libro(titulo, autor, genero)
-            print(f"Libro '{titulo}' agregado exitosamente.")
-
-        elif opcion == "5":
-            mostrar_catalogo()
-
-        elif opcion == "6":
-            titulo = input("Titulo a buscar: ")
-            resultados = buscar_libros_por_titulo(titulo)
-            if resultados:
-                for libro in resultados:
-                    if libro["disponible"]:
-                        estado = "Disponible"
-                    else:
-                        estado = "Prestado"
-                    print(f"{libro['titulo']} | {libro['autor']} | {libro['genero']} | {estado}")
-            else:
-                print("No se encontro ningun libro.")
-
-        elif opcion == "7":
-            autor = input("Autor a buscar: ")
-            resultados = buscar_libros_por_autor(autor)
-            if resultados:
-                for libro in resultados:
-                    if libro["disponible"]:
-                        estado = "Disponible"
-                    else:
-                        estado = "Prestado"
-                    print(f"{libro['titulo']} | {libro['autor']} | {libro['genero']} | {estado}")
-            else:
-                print("No se encontro ningun libro.")
-            
-        elif opcion == "8":
-            print(f"Generos disponibles: {generos_disponibles}")
-            genero = input("Genero a buscar: ")
-            titulos = buscar_libros_por_genero(genero)
-            if titulos:
-                print(f"Libros disponibles en '{genero}':")
-                for titulo in titulos:
-                    print(f"   - {titulo}")
-            else:
-                print(f"No hay libros disponibles en el genero '{genero}'.")
-
-        elif opcion == "9":
-            documento = input("Documento del usuario: ")
-            titulo = input("Titulo del libro: ")
-            registrar_prestamo(documento, titulo)
-
-        elif opcion == "10":
-            documento = input("Documento del usuario: ")
-            titulo = input("Titulo del libro a devolver: ")
-            registrar_devolucion(documento, titulo)
-
-        elif opcion == "11":
-            mostrar_prestamos_activos()
-
-        elif opcion == "12":
-            verificar_atrasos()
-            print("Atrasos verificados.")
-
-        elif opcion == "0":
-            print("Hasta luego.")
-            break
-
-        else:
-            print("Opcion no valida, intenta de nuevo.")
-
-
-# ================================================================
-#                         INICIO
-# ================================================================
-
-# Usuarios precargados
+# ═══════════════════════════════════════════════════════════════════════════════
+# EJECUCION
+# ═══════════════════════════════════════════════════════════════════════════════
 registrar_usuario("111", "Carlos Perez", "3001234567", "carlos@mail.com")
 registrar_usuario("222", "Laura Gomez", "3109876543", "laura@mail.com")
 registrar_usuario("333", "Andres Torres", "3205551234", "andres@mail.com")
 
-# Libros precargados
 agregar_libro("Cien años de soledad", "Gabriel Garcia Marquez", "Novela")
 agregar_libro("El amor en los tiempos del colera", "Gabriel Garcia Marquez", "Novela")
 agregar_libro("El principito", "Antoine de Saint-Exupery", "Fantasia")
@@ -426,4 +293,134 @@ agregar_libro("Harry Potter y la camara de los secretos", "J.K. Rowling", "Fanta
 agregar_libro("Sapiens", "Yuval Noah Harari", "Historia")
 agregar_libro("El arte de la guerra", "Sun Tzu", "Historia")
 
-menu_principal()
+
+while True:
+    print("===== BIBLIOTECA =====")
+    print("1. Registrar usuario")
+    print("2. Buscar usuario")
+    print("3. Mostrar usuarios")
+    print("4. Agregar libro")
+    print("5. Mostrar catalogo")
+    print("6. Buscar libro por titulo")
+    print("7. Buscar libros por autor")
+    print("8. Buscar libros por genero")
+    print("9. Registrar prestamo")
+    print("10. Registrar devolucion")
+    print("11. Mostrar prestamos activos")
+    print("12. Verificar atrasos")
+    print("0. Salir")
+
+    opcion = input("Ingresa que deseas hacer: ")
+
+    match opcion:
+
+        case "1":
+            documento = input("Documento: ")
+            nombre = input("Nombre: ")
+            telefono = input("Telefono: ")
+            correo = input("Correo: ")
+            registrar_usuario(documento, nombre, telefono, correo)
+
+        case "2":
+            documento = input("Documento a buscar: ")
+            usuario = buscar_usuario(documento)
+
+            if usuario:
+                print(
+                    f"Usuario encontrado: "
+                    f"{usuario['nombre']} | "
+                    f"{usuario['telefono']} | "
+                    f"{usuario['correo']}"
+                )
+            else:
+                print("Usuario no encontrado.")
+
+        case "3":
+            mostrar_usuarios()
+
+        case "4":
+            titulo = input("Titulo: ")
+            autor = input("Autor: ")
+            genero = input("Genero: ")
+
+            agregar_libro(titulo, autor, genero)
+            print(f"Libro '{titulo}' agregado exitosamente.")
+
+        case "5":
+            mostrar_catalogo()
+
+        case "6":
+            titulo = input("Titulo a buscar: ")
+            resultados = buscar_libros_por_titulo(titulo)
+
+            if resultados:
+                for libro in resultados:
+                    estado = "Disponible" if libro["disponible"] else "Prestado"
+
+                    print(
+                        f"{libro['titulo']} | "
+                        f"{libro['autor']} | "
+                        f"{libro['genero']} | "
+                        f"{estado}"
+                    )
+            else:
+                print("No se encontro ningun libro.")
+
+        case "7":
+            autor = input("Autor a buscar: ")
+            resultados = buscar_libros_por_autor(autor)
+
+            if resultados:
+                for libro in resultados:
+                    estado = "Disponible" if libro["disponible"] else "Prestado"
+
+                    print(
+                        f"{libro['titulo']} | "
+                        f"{libro['autor']} | "
+                        f"{libro['genero']} | "
+                        f"{estado}"
+                    )
+            else:
+                print("No se encontro ningun libro.")
+
+        case "8":
+            print(f"Generos disponibles: {generos_disponibles}")
+            genero = input("Genero a buscar: ")
+
+            titulos = buscar_libros_por_genero(genero)
+
+            if titulos:
+                print(f"Libros disponibles en '{genero}':")
+
+                for titulo in titulos:
+                        print(f" - {titulo}")
+            else:
+                print(
+                    f"No hay libros disponibles en el genero '{genero}'."
+                )
+
+        case "9":
+            documento = input("Documento del usuario: ")
+            titulo = input("Titulo del libro: ")
+
+            registrar_prestamo(documento, titulo)
+
+        case "10":
+            documento = input("Documento del usuario: ")
+            titulo = input("Titulo del libro a devolver: ")
+
+            registrar_devolucion(documento, titulo)
+
+        case "11":
+                mostrar_prestamos_activos()
+
+        case "12":
+            verificar_atrasos()
+            print("Atrasos verificados.")
+
+        case "0":
+            print("Que tenga un feliz dia.")
+            break
+
+        case _:
+            print("Opcion incorrecta--Ingrese un valor correcto.")

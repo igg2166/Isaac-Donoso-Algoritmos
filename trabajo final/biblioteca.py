@@ -1,6 +1,5 @@
 from datetime import date
-
-
+   
 # ═══════════════════════════════════════════════════════════════════════════════
 # ESTRUCTURA
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -75,6 +74,7 @@ def agregar_libro(titulo, autor, genero):
     libro = {
         "titulo": titulo,
         "autor": autor,
+        "genero": genero,
         "disponible": True
     }
 
@@ -90,7 +90,7 @@ def buscar_libros_por_titulo(titulo):
     """
     resultados = []
 
-    for lista in catalogo.values():
+    for genero, lista in catalogo.items():
         resultado = lista.buscar_todos(lambda libro: titulo.lower() in libro["titulo"].lower())
         if resultado:
             resultados.extend(resultado)
@@ -108,7 +108,7 @@ def buscar_libros_por_autor(autor):
         if resultado:
             resultados.extend(resultado)
     
-    return resultados
+    return resultados,
 
 def buscar_libros_por_genero(genero):
     """
@@ -351,7 +351,7 @@ while True:
 
         case "6":
             titulo = input("Titulo a buscar: ")
-            resultados = buscar_libros_por_titulo(titulo)
+            resultados= buscar_libros_por_titulo(titulo)
 
             if resultados:
                 for libro in resultados:
@@ -359,8 +359,8 @@ while True:
 
                     print(
                         f"{libro['titulo']} | "
-                        f"{libro['autor']} | "
-                        f"{libro['genero']} | "
+                        f"{libro['autor']} |  "
+                        f"{libro['genero']} |"
                         f"{estado}"
                     )
             else:
@@ -376,8 +376,8 @@ while True:
 
                     print(
                         f"{libro['titulo']} | "
-                        f"{libro['autor']} | "
-                        f"{libro['genero']} | "
+                        f"{libro['autor']} |  "
+                        f"{libro['genero']} |"
                         f"{estado}"
                     )
             else:

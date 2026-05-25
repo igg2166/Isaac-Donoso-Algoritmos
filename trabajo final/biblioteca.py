@@ -133,7 +133,7 @@ def mostrar_catalogo():
         return
     
     for genero, lista in catalogo.items():
-        print(f"\nGenero: {genero}")
+        print(f"Genero: {genero}")
         libros = lista.a_lista()
 
         for libro in libros:
